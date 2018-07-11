@@ -9,12 +9,12 @@ const repo = require('./lib/repo');
 clear();
 console.log(
     chalk.yellow(
-        figlet.textSync('GINIT',{horizontalLayout:'full'})
+        figlet.textSync('GINIT', { horizontalLayout: 'full' })
     )
 );
 
 const run = async () => {
-    try{
+    try {
         // retieve and set authentication token
         const token = await getGithubToken();
         github.gethubAuth(token);
@@ -27,12 +27,12 @@ const run = async () => {
 
         // set up local repository and push to remote
         const done = await repo.setupRepo(url);
-        if(done){
+        if (done) {
             console.log(chalk.green('All Done !!!'));
         }
-    } catch(err){
-        if(err){
-            switch(err.code){
+    } catch (err) {
+        if (err) {
+            switch (err.code) {
                 case 401:
                     console.log(chalk.red('Coudn\'t log you in. Please provide corrent credentials'));
                     break;
@@ -46,9 +46,9 @@ const run = async () => {
     }
 };
 
-const getGithubToken = async() => {
+const getGithubToken = async () => {
     let token = github.getStoredGitHubToken();
-    if(token){
+    if (token) {
         return token;
     }
     // no token found,
